@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- item_surah.xml — Matches Fan Quran dark website style -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp"
+    android:gravity="center_vertical"
+    android:background="?attr/selectableItemBackground">
+
+    <!-- Nomor Surah (lingkaran putih seperti website) -->
+    <TextView
+        android:id="@+id/tv_number"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/circle_bg"
+        android:gravity="center"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:textColor="@color/number_circle_text"
+        android:text="1" />
+
+    <!-- Info Surah: Nama Latin + Terjemahan -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="16dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_surah_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Al-Fatihah"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary" />
+
+        <TextView
+            android:id="@+id/tv_translation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pembukaan • 7 Ayat"
+            android:textSize="13sp"
+            android:textColor="@color/text_secondary"
+            android:layout_marginTop="2dp" />
+
+    </LinearLayout>
+
+    <!-- Nama Arab (rata kanan) -->
+    <TextView
+        android:id="@+id/tv_arabic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="الفاتحة"
+        android:textSize="20sp"
+        android:textColor="@color/text_arabic"
+        android:fontFamily="serif" />
+
+    <!-- Garis aksen hijau kanan seperti website -->
+    <View
+        android:layout_width="3dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="12dp"
+        android:background="@color/accent_green"
+        android:visibility="gone"
+        android:id="@+id/green_accent" />
+
+</LinearLayout>

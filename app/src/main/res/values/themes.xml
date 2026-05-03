@@ -1,0 +1,18 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme - Force Dark Mode like Fan Quran website -->
+    <style name="Base.Theme.Revert" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/accent_green</item>
+        <item name="colorOnPrimary">@color/bg_primary</item>
+        <item name="colorPrimaryContainer">@color/accent_green_dim</item>
+        <item name="colorSurface">@color/bg_surface</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="android:colorBackground">@color/bg_primary</item>
+        <item name="android:windowBackground">@color/bg_primary</item>
+        <item name="android:statusBarColor">@color/bg_primary</item>
+        <item name="android:navigationBarColor">@color/bg_nav</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+    </style>
+
+    <style name="Theme.Revert" parent="Base.Theme.Revert" />
+</resources>

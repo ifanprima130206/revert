@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- activity_ayah.xml — Matches Fan Quran dark website exactly -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_primary">
+
+    <!-- Header Surah Info (seperti website: nama + subtitle) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="48dp"
+        android:paddingBottom="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:background="@color/bg_primary">
+
+        <!-- Back button row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <ImageView
+                android:id="@+id/btn_back"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@android:drawable/ic_media_previous"
+                android:background="@drawable/circle_outline"
+                android:padding="8dp"
+                android:contentDescription="Back" />
+
+        </LinearLayout>
+
+        <!-- "../Al-Fatihah" style like website -->
+        <TextView
+            android:id="@+id/tv_surah_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="../Al-Fatihah"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary" />
+
+        <TextView
+            android:id="@+id/tv_surah_sub_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pembukaan - Makkiyyah"
+            android:textSize="14sp"
+            android:textColor="@color/text_secondary"
+            android:layout_marginTop="4dp" />
+
+        <TextView
+            android:id="@+id/tv_ayah_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="7 Ayat"
+            android:textSize="13sp"
+            android:textColor="@color/text_hint"
+            android:layout_marginTop="2dp" />
+
+    </LinearLayout>
+
+    <!-- Divider -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider" />
+
+    <!-- Skeleton Loading Container -->
+    <LinearLayout
+        android:id="@+id/skeleton_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:visibility="gone">
+        
+        <include layout="@layout/item_ayah_skeleton" />
+        <include layout="@layout/item_ayah_skeleton" />
+        <include layout="@layout/item_ayah_skeleton" />
+        <include layout="@layout/item_ayah_skeleton" />
+        <include layout="@layout/item_ayah_skeleton" />
+        <include layout="@layout/item_ayah_skeleton" />
+        
+    </LinearLayout>
+
+    <!-- List Ayat -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_ayah"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/bg_primary"
+        android:paddingTop="8dp"
+        android:paddingBottom="16dp"
+        android:clipToPadding="false" />
+
+</LinearLayout>

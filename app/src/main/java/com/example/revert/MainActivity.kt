@@ -9,13 +9,20 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.EditText
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var rvQuran: RecyclerView
+    private lateinit var etSearch: EditText
+    private lateinit var quranAdapter: QuranAdapter
+    private var allSurahList: List<Surah> = emptyList()
     private val apiService = QuranApiService.create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +31,27 @@ class MainActivity : AppCompatActivity() {
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
         rvQuran = findViewById(R.id.rv_quran)
+        etSearch = findViewById(R.id.et_search)
         rvQuran.layoutManager = LinearLayoutManager(this)
+
+        quranAdapter = QuranAdapter(emptyList()) { surah ->
+            val intent = Intent(this@MainActivity, AyahActivity::class.java)
+            intent.putExtra("SURAH_NUMBER", surah.number)
+            intent.putExtra("SURAH_NAME", surah.nameLatin)
+            intent.putExtra("SURAH_TRANSLATION", surah.translation)
+            intent.putExtra("SURAH_REVELATION", surah.revelation)
+            intent.putExtra("SURAH_AYAH_COUNT", surah.numberOfAyahs)
+            startActivity(intent)
+        }
+        rvQuran.adapter = quranAdapter
+
+        etSearch.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                filter(s.toString())
+            }
+        })
 
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -53,20 +80,24 @@ class MainActivity : AppCompatActivity() {
         bottomNav.selectedItemId = R.id.nav_quran
     }
 
+    private fun filter(text: String) {
+        val filteredList = mutableListOf<Surah>()
+        for (surah in allSurahList) {
+            if (surah.nameLatin.lowercase(Locale.getDefault()).contains(text.lowercase(Locale.getDefault())) ||
+                surah.translation.lowercase(Locale.getDefault()).contains(text.lowercase(Locale.getDefault()))
+            ) {
+                filteredList.add(surah)
+            }
+        }
+        quranAdapter.updateData(filteredList)
+    }
+
     private fun loadSurahList() {
         apiService.getSurahList().enqueue(object : Callback<QuranResponse> {
             override fun onResponse(call: Call<QuranResponse>, response: Response<QuranResponse>) {
                 if (response.isSuccessful) {
-                    val surahList = response.body()?.data ?: emptyList()
-                    rvQuran.adapter = QuranAdapter(surahList) { surah ->
-                        val intent = Intent(this@MainActivity, AyahActivity::class.java)
-                        intent.putExtra("SURAH_NUMBER", surah.number)
-                        intent.putExtra("SURAH_NAME", surah.nameLatin)
-                        intent.putExtra("SURAH_TRANSLATION", surah.translation)
-                        intent.putExtra("SURAH_REVELATION", surah.revelation)
-                        intent.putExtra("SURAH_AYAH_COUNT", surah.numberOfAyahs)
-                        startActivity(intent)
-                    }
+                    allSurahList = response.body()?.data ?: emptyList()
+                    quranAdapter.updateData(allSurahList)
                 } else {
                     Toast.makeText(
                         this@MainActivity,

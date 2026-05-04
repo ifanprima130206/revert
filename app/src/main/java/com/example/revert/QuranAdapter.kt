@@ -7,9 +7,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class QuranAdapter(
-    private val listSurah: List<Surah>,
+    private var listSurah: List<Surah>,
     private val onItemClick: (Surah) -> Unit
 ) : RecyclerView.Adapter<QuranAdapter.ViewHolder>() {
+
+    fun updateData(newList: List<Surah>) {
+        listSurah = newList
+        notifyDataSetChanged()
+    }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvNumber: TextView = view.findViewById(R.id.tv_number)
